@@ -24,18 +24,15 @@ async def on_message(message):
     print(f'Message {user_message} by {username} on {channel}')
 
 
-@tasks.loop(minutes=1)
+@tasks.loop(seconds=5)
 async def min_message():
-    await client.wait_until_ready()
+    channel = client.get_channel(int(GENCHANNEL))
     await channel.send("test")
 
 
 @client.event
 async def on_ready():
     print("Logged in as {0.user}".format(client))
-
-    channel = client.get_channel(int(GENCHANNEL))
-    await channel.send("Hey?")
 
     # min_message.start()
 
